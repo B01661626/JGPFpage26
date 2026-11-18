@@ -82649,12 +82649,12 @@ var init_volumetricLightingRenderVolume_fragment2 = __esm(() => {
   init_shaderStore();
   init_sceneFragmentDeclaration();
   init_sceneUboDeclaration();
-  if (!ShaderStore.GetShadersStore[name282]) {
-    ShaderStore.GetShadersStore[name282] = shader282;
+  if (!ShaderStore.ShadersStore[name282]) {
+    ShaderStore.ShadersStore[name282] = shader282;
   }
   includes58 = [sceneFragmentDeclaration, sceneUboDeclaration];
   for (const inc of includes58) {
-    if (!ShaderStore.GetIncludesShadersStore[inc.name]) {
+    if (!ShaderStore.IncludesShadersStore[inc.name]) {
       ShaderStore.IncludesShadersStore[inc.name] = inc.shader;
     }
   }
@@ -315947,8 +315947,8 @@ RegisterMRDLBackplateMaterial();
 // createStartScene.ts
 function createTerrain(scene) {
   const largeGroundMat = new StandardMaterial("largeGroundMat");
-  largeGroundMat.diffuseTexture = new Texture("/assets/environments/valleygrass.png", scene);
-  const largeGround = MeshBuilder.CreateGroundFromHeightMap("largeGround", "/assets/environments/villageheightmap.png", {
+  largeGroundMat.diffuseTexture = new Texture("assets/environments/valleygrass.png", scene);
+  const largeGround = MeshBuilder.CreateGroundFromHeightMap("largeGround", "assets/environments/villageheightmap.png", {
     width: 150,
     height: 150,
     subdivisions: 20,
@@ -315960,7 +315960,7 @@ function createTerrain(scene) {
 }
 function createGround(scene) {
   const groundMaterial = new StandardMaterial("groundMaterial");
-  const groundTexture = new Texture("/assets/environments/villagegreen.png", scene);
+  const groundTexture = new Texture("assets/environments/villagegreen.png", scene);
   groundMaterial.diffuseTexture = groundTexture;
   groundMaterial.diffuseTexture.hasAlpha = true;
   groundMaterial.backFaceCulling = false;
@@ -315973,7 +315973,7 @@ function createSky(scene) {
   const skybox = MeshBuilder.CreateBox("skyBox", { size: 150 }, scene);
   const skyboxMaterial = new StandardMaterial("skyBox", scene);
   skyboxMaterial.backFaceCulling = false;
-  skyboxMaterial.reflectionTexture = new CubeTexture("/assets/textures/skybox/skybox", scene);
+  skyboxMaterial.reflectionTexture = new CubeTexture("assets/textures/skybox/skybox", scene);
   skyboxMaterial.reflectionTexture.coordinatesMode = Texture.SKYBOX_MODE;
   skyboxMaterial.diffuseColor = new Color3(0, 0, 0);
   skyboxMaterial.specularColor = new Color3(0, 0, 0);
@@ -315984,13 +315984,13 @@ function createBox(style) {
   const boxMat = new StandardMaterial("boxMat");
   const faceUV = [];
   if (style == 1) {
-    boxMat.diffuseTexture = new Texture("/assets/textures/cubehouse.png");
+    boxMat.diffuseTexture = new Texture("assets/textures/cubehouse.png");
     faceUV[0] = new Vector4(0.5, 0, 0.75, 1);
     faceUV[1] = new Vector4(0, 0, 0.25, 1);
     faceUV[2] = new Vector4(0.25, 0, 0.5, 1);
     faceUV[3] = new Vector4(0.75, 0, 1, 1);
   } else {
-    boxMat.diffuseTexture = new Texture("/assets/textures/semihouse.png");
+    boxMat.diffuseTexture = new Texture("assets/textures/semihouse.png");
     faceUV[0] = new Vector4(0.6, 0, 1, 1);
     faceUV[1] = new Vector4(0, 0, 0.4, 1);
     faceUV[2] = new Vector4(0.4, 0, 0.6, 1);
@@ -316018,7 +316018,7 @@ function createRoof(style, scene) {
   roof.rotation.z = Math.PI / 2;
   roof.position.y = 1.22;
   const roofMat = new StandardMaterial("roofMat");
-  roofMat.diffuseTexture = new Texture("/assets/textures/roof.jpg", scene);
+  roofMat.diffuseTexture = new Texture("assets/textures/roof.jpg", scene);
   roof.material = roofMat;
   return roof;
 }
@@ -316075,7 +316075,7 @@ function createHouses(scene, style) {
   }
 }
 function createTrees(scene) {
-  const spriteManagerTrees = new SpriteManager("treesManager", "/assets/sprites/tree.png", 2000, { width: 512, height: 1024 }, scene);
+  const spriteManagerTrees = new SpriteManager("treesManager", "assets/sprites/tree.png", 2000, { width: 512, height: 1024 }, scene);
   for (let i = 0;i < 500; i++) {
     const tree = new Sprite("tree", spriteManagerTrees);
     tree.position.x = Math.random() * -30;
@@ -316101,7 +316101,7 @@ async function initializeAudio() {
   try {
     const audioEngine = await CreateAudioEngineAsync();
     await audioEngine.unlockAsync();
-    return CreateStreamingSoundAsync("birds", "/assets/audio/AMBBird.wav", { loop: true }, audioEngine);
+    return CreateStreamingSoundAsync("birds", "assets/audio/AMBBird.wav", { loop: true }, audioEngine);
   } catch (err) {
     console.error("Audio init failed:", err);
     throw err;
